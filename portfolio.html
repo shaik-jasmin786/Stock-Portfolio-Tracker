@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+  <h2>Your Portfolio</h2>
+  <form method="POST" action="/add" class="mb-4">
+    <input type="text" name="symbol" placeholder="Stock Symbol" required>
+    <input type="number" name="quantity" placeholder="Quantity" required>
+    <input type="number" name="buy_price" placeholder="Buy Price" step="0.01" required>
+    <button type="submit" class="btn btn-success">Add Stock</button>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Qty</th>
+        <th>Buy Price</th>
+        <th>Current Price</th>
+        <th>Current Value</th>
+        <th>Gain/Loss</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stock in stocks %}
+      <tr>
+        <td>{{ stock.symbol }}</td>
+        <td>{{ stock.quantity }}</td>
+        <td>{{ stock.buy_price }}</td>
+        <td>{{ stock.current_price }}</td>
+        <td>{{ stock.current_value }}</td>
+        <td>{{ stock.gain_loss }}</td>
+        <td><a href="/delete/{{ stock.symbol }}" class="btn btn-danger btn-sm">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h4>Total Portfolio Value: ${{ total }}</h4>
+  <a href="/" class="btn btn-secondary mt-3">Back</a>
+</body>
+</html>
